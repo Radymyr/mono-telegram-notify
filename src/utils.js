@@ -142,9 +142,7 @@ export async function safetySendMessage(chatId, text, extra) {
  * @returns {string}*/
 export function getAccountStatement(accounts) {
   return accounts.reduce((textMessage, account) => {
-    textMessage += `
-    *Карта:* ${account?.type}
-    *Баланс:* ${getAmount(account?.balance)} грн.`;
+    textMessage += `\n*Карта:* ${account?.type}\n*Баланс:* ${getAmount(account?.balance)} ${getCurrencyName(account.currencyCode)}. \\n_____________________________`;
     return textMessage;
   }, "");
 }
