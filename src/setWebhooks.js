@@ -1,7 +1,6 @@
 "use strict";
 
 import { bot, monobankRoute } from "./initialized.js";
-import { getAccInfo } from "./utils.js";
 
 export const makeTelegramWebhook = async (url, route) => {
   await bot.telegram.setWebhook(url + route);

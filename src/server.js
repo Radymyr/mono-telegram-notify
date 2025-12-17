@@ -6,7 +6,6 @@ import { monobankRoute, baseUrl, telegramRoute } from "./initialized.js";
 import { makeTelegramWebhook, makeMonobankWebhook } from "./setWebhooks.js";
 import {
   checkWebhook,
-  getFormatText,
   getAccInfo,
   safetySendMessage,
   sendToTelegram,
