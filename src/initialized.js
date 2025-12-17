@@ -2,10 +2,11 @@ import "dotenv/config";
 import Fastify from "fastify";
 import { Telegraf } from "telegraf";
 
-export const monobankToken = process.env.MONOBANK_TOKEN;
+// export const monobankToken = process.env.MONOBANK_TOKEN;
+// export const telegramUrl = `https://api.telegram.org/bot${telegramToken}/setWebhook`;
+
 export const baseUrl = process.env.WEB_HOOK_URL;
 export const telegramToken = process.env.TELEGRAM_TOKEN;
-export const telegramUrl = `https://api.telegram.org/bot${telegramToken}/setWebhook`;
 
 export const bot = new Telegraf(telegramToken);
 export const app = Fastify({ logger: true });
