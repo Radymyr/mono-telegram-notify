@@ -141,26 +141,22 @@ export async function safetySendMessage(chatId, text, extra) {
  * @returns {string}*/
 export function getAccountStatement(accounts) {
   const mainCard = "💳";
-  let cardName = "";
 
   return accounts.reduce((textMessage, account) => {
     const currency = getCurrencyName(account.currencyCode);
     const balance = getAmount(account?.balance);
     const type = account?.type;
+    let cardName = "";
 
     if (currency === "USD") {
       cardName = "Долларовая карта";
-    }
-    if (currency === "EUR") {
+    } else if (currency === "EUR") {
       cardName = "Евро Карта";
-    }
-    if (currency === "EUR") {
+    } else if (currency === "EUR") {
       cardName = "Евро Карта";
-    }
-    if (currency === "UAH" && type === "white") {
+    } else if (currency === "UAH" && type === "white") {
       cardName = `Белая карта${mainCard}`;
-    }
-    if (currency === "UAH" && type === "black") {
+    } else if (currency === "UAH" && type === "black") {
       cardName = `Черная карта${mainCard}`;
     } else {
       cardName = type;
