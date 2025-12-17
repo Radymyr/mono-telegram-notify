@@ -6,7 +6,6 @@ export function getCurrencyName(currencyCode) {
     980: "UAH",
     840: "USD",
     978: "EUR",
-    643: "RUB",
   };
   return currencies[currencyCode] || "Unknown currency";
 }
@@ -142,12 +141,12 @@ export async function safetySendMessage(chatId, text, extra) {
  * @returns {string}*/
 export function getAccountStatement(accounts) {
   const mainCard = "💳";
+  let cardName = "";
 
   return accounts.reduce((textMessage, account) => {
     const currency = getCurrencyName(account.currencyCode);
     const balance = getAmount(account?.balance);
     const type = account?.type;
-    let cardName = "";
 
     if (currency === "USD") {
       cardName = "Долларовая карта";
