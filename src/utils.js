@@ -139,13 +139,35 @@ export async function safetySendMessage(chatId, text, extra) {
 /**
  * @function getAccountStatement
  * @param {Array<{balance: number, cashbackType: string, creditLimit: number, currencyCode: number, iban: string, id: string, maskedPan: Array, sendId: string, type: string}>} accounts
- * @param {Array<number>} defaultCardIndexes
  * @returns {string}*/
-export function getAccountStatement(accounts, defaultCardIndexes) {
+export function getAccountStatement(accounts) {
   const mainCard = "💳";
 
-  return accounts.reduce((textMessage, account, index) => {
-    textMessage += `\nКарта: ${account?.type}${defaultCardIndexes.includes(index) && mainCard}\nБаланс: ${getAmount(account?.balance)} ${getCurrencyName(account.currencyCode)}.\n_____________________________`;
+  return accounts.reduce((textMessage, account) => {
+    const currency = getCurrencyName(account.currencyCode);
+    const balance = getAmount(account?.balance);
+    const type = account?.type;
+    let cardName = "";
+
+    if (currency === "USD") {
+      cardName = "Долларовая карта";
+    }
+    if (currency === "EUR") {
+      cardName = "Евро Карта";
+    }
+    if (currency === "EUR") {
+      cardName = "Евро Карта";
+    }
+    if (currency === "UAH" && type === "white") {
+      cardName = `Белая карта${mainCard}`;
+    }
+    if (currency === "UAH" && type === "black") {
+      cardName = `Черная карта${mainCard}`;
+    } else {
+      cardName = type;
+    }
+
+    textMessage += `\nКарта: ${cardName}\nБаланс: ${balance} ${currency}.\n_____________________________`;
     return textMessage;
   }, "");
 }

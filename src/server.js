@@ -37,7 +37,7 @@ app.post(telegramRoute, async (request, reply) => {
 
     const response = await getAccInfo(tokenFromText);
 
-    const accountStatementText = getAccountStatement(response.accounts, [1, 2]);
+    const accountStatementText = getAccountStatement(response.accounts);
 
     await safetySendMessage(chatId, accountStatementText);
 
