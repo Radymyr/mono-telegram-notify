@@ -139,10 +139,13 @@ export async function safetySendMessage(chatId, text, extra) {
 /**
  * @function getAccountStatement
  * @param {Array<{balance: number, cashbackType: string, creditLimit: number, currencyCode: number, iban: string, id: string, maskedPan: Array, sendId: string, type: string}>} accounts
+ * @param {Array<number>} defaultCardIndexes
  * @returns {string}*/
-export function getAccountStatement(accounts) {
-  return accounts.reduce((textMessage, account) => {
-    textMessage += `\n``*Карта:*`` ${account?.type}\n*Баланс:* ${getAmount(account?.balance)} ${getCurrencyName(account.currencyCode)}.\n_____________________________`;
+export function getAccountStatement(accounts, defaultCardIndexes) {
+  const mainCard = "💳";
+
+  return accounts.reduce((textMessage, account, index) => {
+    textMessage += `\nКарта: ${account?.type}${defaultCardIndexes.includes(index) && mainCard}\nБаланс: ${getAmount(account?.balance)} ${getCurrencyName(account.currencyCode)}.\n_____________________________`;
     return textMessage;
   }, "");
 }
