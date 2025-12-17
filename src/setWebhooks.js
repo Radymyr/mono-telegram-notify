@@ -1,18 +1,24 @@
-'use strict';
+"use strict";
 
-import { bot, monobankRoute } from './initialized.js';
+import { bot, monobankRoute } from "./initialized.js";
+import { getAccInfo } from "./utils.js";
 
 export const makeTelegramWebhook = async (url, route) => {
   await bot.telegram.setWebhook(url + route);
-  await bot.telegram.getWebhookInfo().then((info) => console.log(info));
+  const telegramWebhookInfo = await bot.telegram.getWebhookInfo();
+
+  console.log("telegramWebhookInfo:", telegramWebhookInfo);
 };
 
-export const makeMonobankWebhook = async (url, token, webHook, id) => {
-  const webHookUrl = webHook + monobankRoute + '/' + id;
-  return await fetch(url, {
-    method: 'POST',
+export const makeMonobankWebhook = async (token, webHook, id) => {
+  const webHookUrl = webHook + monobankRoute + "/" + id;
+
+  const webhookRegistrationUrl = "https://api.monobank.ua/personal/webhook";
+
+  return await fetch(webhookRegistrationUrl, {
+    method: "POST",
     headers: {
-      'X-Token': token,
+      "X-Token": token,
     },
     body: JSON.stringify({ webHookUrl }),
   });
